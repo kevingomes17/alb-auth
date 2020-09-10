@@ -17,12 +17,15 @@ function App() {
       }
     }).then(function (response) {
       // handle success
-      console.log(response);
-    })
-      .catch(function (error) {
+      console.log('Success: ', response);
+      if (response.headers['x-auth0-requestid'] && response.request.responseURL) {
+        // Redirect is requested
+        window.location = response.request.responseURL;
+      }
+    }).catch(function (error) {
         // handle error
-        console.log(error);
-      });
+      console.log('Error: ', error);
+    });
   };
 
   return (
